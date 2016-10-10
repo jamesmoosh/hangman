@@ -3,29 +3,22 @@
 
 import random
 
-dictionary = open(dictionary.txt)
-dict_length = 0
-while True:
-    buffer = dictionary.readline()
-    if buffer == "":
-        break
-    dict_length += 1
-    
+dictionaryfile = open(dictionary.txt, r)
+dict_length = sum(1 for line in dictionaryfile)
 line_number = random.randint(1,dict_length)
+dictionary = dictionaryfile.readlines()
 
 ## input random word from dictionary
 
-i = 0
-while i < line_number:
-    word_to_guess = dictionary.readline()
-    i += 1
-
-word_to_guess = word_to_guess[:-2]
+def newword(line_number):
+    dictionary[line_number - 1]
+    return word_to_guess[:-2]
 
 ## reject words <3, >8 letters long
 
 while len(word_to_guess)< 3 or len(word_to_guess) > 8:
-    word_to_guess = 
+    line_number = random.randint(1,dict_length)
+    word_to_guess = newword(line_number)
 
 ## print _ _ _ (length of word)
 working_word = str("_ " * len(word_to_guess))
