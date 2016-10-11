@@ -4,26 +4,21 @@
 import random
 
 dictionaryfile = open(dictionary.txt, r)
-dictionary = dictionaryfile.readlines()
+dictionary = []
+## reject words <3, >8 letters long
+for line in dictionaryfile:
+    if len(line) > 5 and len(line) < 10:
+        dictionary.append(line[:-2])
 dict_length = len(dictionary)
 dictionaryfiles.close()
 
 ## input random word from dictionary
 
-def newword(line_number):
-    word_to_guess = dictionary[line_number]
-    return word_to_guess[:-2]
-## reject words <3, >8 letters long
 def get_new_word(dict_length):
     line_number = random.randint(1,dict_length -1)
-    word_to_guess = newword(line_number)
-    while True:
-        if len(word_to_guess)< 3 or len(word_to_guess) > 8:
-            line_number = random.randint(1,dict_length)
-            word_to_guess = newword(line_number)
-        else:
-            return word_to_guess
-            break
+    word_to_guess = dictionary[line_number]
+    return word_to_guess
+     
 
 working_word = str("_" * len(word_to_guess))
 print("Word to guess is" working_word)
@@ -31,6 +26,99 @@ guesslist = []
 correct_guesses = []
 wrong_guesses = []
 game_end = False
+
+hangman_image = [
+'''
+  
+      
+      
+    
+     
+        
+       
+========='''
+,'''
+  
+       |
+       |
+       |
+       |
+       | 
+       |
+========='''
+,'''
+  ________
+       |
+       |
+       |
+       |
+       | 
+       |
+========='''
+,'''
+  ________
+   |   |
+       |
+       |
+       |
+       | 
+       |
+========='''
+,'''
+  ________
+   |   |
+   O   |
+       |
+       |
+       | 
+       |
+========='''
+,'''
+  ________
+   |   |
+   O   |
+   |   |
+       |
+       | 
+       |
+========='''
+,'''
+  ________
+   |   |
+   O   |
+  /|   |
+       |
+       | 
+       |
+========='''
+,'''
+  ________
+   |   |
+   O   |
+  /|\  |
+       |
+       | 
+       |
+========='''
+,'''
+  ________
+   |   |
+   O   |
+  /|\  |
+   /   |
+       | 
+       |
+========='''
+,'''
+  ________
+   |   |
+   O   |
+  /|\  |
+   /\  |
+       | 
+       |
+=========''']
+hangman = hangman_image[0]
     
 ## check guess is a letter, and hasn't already been guessed. add to list of guesses
 def get_guess(guesslist)
@@ -66,6 +154,7 @@ while True:
         else:
             print("Sorry, that's wrong")
             wrong_guesses.append(guess)
+            hangman = hangman_image[len(wrong_guesses)]
             if len(wrong_guesses) == 10:
                   print(hangman)
                   print("You have lost! The word was ", word_to_guess)
