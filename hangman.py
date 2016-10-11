@@ -2,15 +2,15 @@
 ## 10/10/16 -jrkg
 
 import random
-
-dictionaryfile = open(dictionary.txt, r)
 dictionary = []
+dictionaryfile = open("dictionary.txt")
+
 ## reject words <3, >8 letters long
 for line in dictionaryfile:
     if len(line) > 5 and len(line) < 10:
         dictionary.append(line[:-2])
 dict_length = len(dictionary)
-dictionaryfiles.close()
+dictionaryfile.close()
 
 ## input random word from dictionary
 
@@ -19,9 +19,8 @@ def get_new_word(dict_length):
     word_to_guess = dictionary[line_number]
     return word_to_guess
      
-
+word_to_guess = get_new_word(dict_length)
 working_word = str("_" * len(word_to_guess))
-print("Word to guess is" working_word)
 guesslist = []
 correct_guesses = []
 wrong_guesses = []
@@ -121,9 +120,10 @@ hangman_image = [
 hangman = hangman_image[0]
     
 ## check guess is a letter, and hasn't already been guessed. add to list of guesses
-def get_guess(guesslist)
+def get_guess(guesslist):
     while True:
-        guess = str(input("Enter a letter to guess. "))
+        print("Enter a letter to guess. ")
+        guess = str(input())
         guess = guess.lower
         if len(guess) != 1:
             print("Please enter a single letter")
@@ -150,7 +150,7 @@ while True:
             for i in range(len(word_to_guess)):
                 if word_to_guess[i] in correct_guesses:
                     working_word = working_word[:i] + word_to_guess[i] + working_word[i+1:]
-            print("Correct!)
+            print("Correct!")
         else:
             print("Sorry, that's wrong")
             wrong_guesses.append(guess)
@@ -160,17 +160,18 @@ while True:
                   print("You have lost! The word was ", word_to_guess)
                   game_end = True
     else:
-        print("Congratulations! You won!)
+        print("Congratulations! You won!")
         game_end = True
-    if game_end = True:
+    if game_end == True:
         again = input("Play again, Y/N?")
         if again.lower == "y":
             word_to_guess = get_new_word(dict_length)
             working_word = str("_" * len(word_to_guess))
-            print("Word to guess is" working_word)
+            print("Word to guess is", working_word)
             guesslist = []
             correct_guesses = []
             wrong_guesses = []
             game_end = False
+            hangman = hangman_image[0]
         else:
             break
