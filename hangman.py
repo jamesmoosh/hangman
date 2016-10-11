@@ -3,7 +3,7 @@
 
 import random
 dictionary = []
-dictionaryfile = open("dictionary.txt")
+dictionaryfile = open("/usr/share/dict/words")
 
 ## reject words <3, >8 letters long
 for line in dictionaryfile:
@@ -123,13 +123,13 @@ hangman = hangman_image[0]
 def get_guess(guesslist):
     while True:
         print("Enter a letter to guess. ")
-        guess = str(input())
-        guess = guess.lower
+        guess = input()
+        guess = guess.lower()
         if len(guess) != 1:
             print("Please enter a single letter")
         elif guess in guesslist:
             print("You've already guessed ", guess, ". Please choose again.")
-        elif guess not in 'abcdefghijklmnopqrstuvwxyz':
+        elif not guess.isalpha():
             print('Please enter a letter.')
         else:
             return guess
@@ -154,7 +154,7 @@ while True:
         else:
             print("Sorry, that's wrong")
             wrong_guesses.append(guess)
-            hangman = hangman_image[len(wrong_guesses)]
+            hangman = hangman_image[len(wrong_guesses)-1]
             if len(wrong_guesses) == 10:
                   print(hangman)
                   print("You have lost! The word was ", word_to_guess)
